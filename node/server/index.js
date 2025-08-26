@@ -5,7 +5,7 @@ import path from 'node:path'
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production'
-const port = process.env.PORT || 3005
+const port = process.env.PORT || 3551
 const root = process.cwd()
 
 // Cached production assets
@@ -16,7 +16,6 @@ const templateHtml = isProduction
 function resolve(p) {
     return path.resolve(root, p);
 }
-
 
 async function createServer() {
     let app = express()

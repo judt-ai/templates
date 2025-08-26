@@ -5,11 +5,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "node server/index.js",
+    "dev": "NODE_ENV=development PORT=3551 node server/index.js",
     "build": "vite build && BUILD_SSR=true vite build",
     "build:client": "vite build",
     "build:server": "BUILD_SSR=true vite build",
-    "start": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=production PORT=3552 node server/index.js"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
