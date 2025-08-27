@@ -21,8 +21,9 @@ async function createServer() {
 
     // Serve HTML
     app.all('*', async (req, res) => {
+        console.log('req.originalUrl', req.originalUrl)
         try {
-            const url = req.originalUrl
+            const url = req.originalUrl;
 
             let template = templateHtml
             let render = (await import(root + '/dist/server/entry-server.js')).render
@@ -33,6 +34,8 @@ async function createServer() {
             const status = typeof rendered === 'object' && rendered !== null ? (rendered.status ?? 200) : 200
 
             const html = template.replace(`<!-- SSR OUTLET -->`, appHtml)
+
+            console.log(rendered)
 
             res.status(status).set({ 'Content-Type': 'text/html' }).send(html)
         } catch (e) {
