@@ -10,7 +10,8 @@
       "ignore_watch": [
         "./dist",
         "./.logs",
-        "./node_modules"
+        "./node_modules",
+        "./.pm2"
       ],
       "env": {
         "NODE_ENV": "development",

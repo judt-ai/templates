@@ -33,7 +33,7 @@
     "tailwindcss": "^4.1.12",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.7",
-    "vite": "^7.1.3"
+    "vite": "npm:rolldown-vite@latest"
   },
   "author": "",
   "license": "MIT"
