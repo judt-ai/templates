@@ -3,16 +3,10 @@
     {
       "name": "app-dev-server",
       "script": "npm",
-      "args": "run dev:server",
+      "args": "run dev",
       "log_file": "./.logs/app.log",
       "time": true,
-      "watch": true,
-      "ignore_watch": [
-        "./dist",
-        "./.logs",
-        "./node_modules",
-        "./.pm2"
-      ],
+      "max_memory_restart": "512M",
       "env": {
         "NODE_ENV": "development",
         "PORT": 3551

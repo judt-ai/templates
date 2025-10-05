@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
 import { Button } from './components/ui/button'
 import routes from './routes'
@@ -13,10 +12,10 @@ export function App() {
                     <Link className="underline" to="/about">About</Link>
                     <Link className="underline" to="/contact">Contact</Link>
                 </nav>
-                <div className="pt-4 text-left">
+                <div className="pt-4 text-center">
                     <Routes>
-                        {routes.map((route) => (
-                            <Route key={route.path} path={route.path} element={route.element} />
+                        {routes.map((route, index) => (
+                            <Route key={index} path={route.path} element={<route.Component />} />
                         ))}
                     </Routes>
                 </div>

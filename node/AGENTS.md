@@ -11,8 +11,8 @@
 - Three Pages: Home (/), About (/about), Contact (/contact) + 404
 - ShadCN UI Components - Pre-configured button component
 - Production-ready - Compression, static file serving, error handling
-## Available Scripts 
-- You should not need to run scripts after code changes. This App comes with a PM2 (App Process Mananger) already setup which will build the code after changes and run the dev server. It uses vite to build and node JS and express to run the server. 
+## Running the App
+- This app has PM2 (process manager) running in the background. It renders the app as it is in the /dist folder. You should run `npm run build` after you make changes in order to update them on the App. The build command will restart pm2 after build is completed.
 ## Current Pages
 - Home: Simple welcome page
 - About: Basic about page

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva } from './cva'
 
@@ -26,7 +26,7 @@ const buttonVariants = cva(
   }
 )
 
-export const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
+export const Button = forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : 'button'
   return (
     <Comp

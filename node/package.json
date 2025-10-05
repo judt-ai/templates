@@ -6,11 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development PORT=3551 node server/index.js",
-    "build": "vite build && BUILD_SSR=true vite build",
+    "build": "vite build && BUILD_SSR=true vite build && pm2 restart all",
     "dev:server": "npm run build && npm run dev",
-    "build:client": "vite build",
-    "build:server": "BUILD_SSR=true vite build",
-    "build:watch": "vite build --watch",
     "start": "NODE_ENV=production PORT=3552 node server/index.js"
   },
   "dependencies": {
