@@ -1,16 +1,38 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import express, { type Request, type Response, type NextFunction } from 'express';
+import helmet from 'helmet';
 
 // Constants
 const port = process.env.PORT || 3551;
 const root = process.cwd();
+const isProd = process.env.NODE_ENV === 'production';
 
 // Cached production assets
 const templateHtml = await fs.readFile('./dist/client/index.html', 'utf8').catch(() => '');
 
 async function createServer() {
 	const app = express();
+
+	// Security: remove X-Powered-By and add protective HTTP headers
+	app.use(helmet({
+		contentSecurityPolicy: {
+			directives: {
+				defaultSrc: ["'self'"],
+				scriptSrc: ["'self'", "'unsafe-inline'"],
+				styleSrc: ["'self'", "'unsafe-inline'"],
+				imgSrc: ["'self'", 'data:'],
+				connectSrc: ["'self'"],
+				fontSrc: ["'self'"],
+				objectSrc: ["'none'"],
+				frameAncestors: ["'none'"],
+			},
+		},
+	}));
+
+	// Security: limit request body size to prevent payload-based DoS
+	app.use(express.json({ limit: '10kb' }));
+	app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
 	const compression = await import('compression');
 	app.use(compression.default());
@@ -35,8 +57,9 @@ async function createServer() {
 
 			res.status(status).set({ 'Content-Type': 'text/html' }).send(html);
 		} catch (error: any) {
-			console.log(error.stack);
-			res.status(500).end(error.stack);
+			// Security: never expose stack traces to the client
+			console.error(error.stack);
+			res.status(500).end(isProd ? 'Internal Server Error' : error.stack);
 		}
 	});
 
@@ -47,8 +70,9 @@ async function createServer() {
 
 	// Error handling middleware
 	app.use((error: any, request: Request, res: Response, _next: NextFunction) => {
+		// Security: never expose stack traces to the client
 		console.error(error.stack);
-		res.status(500).end(error.stack);
+		res.status(500).end(isProd ? 'Internal Server Error' : error.stack);
 	});
 
 	return app;
